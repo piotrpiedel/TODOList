@@ -1,0 +1,45 @@
+diff a/app/src/main/java/com/example/piotrek/todolistv3/model/DbHelper.java b/app/src/main/java/com/example/piotrek/todolistv3/model/DbHelper.java	(rejected hunks)
+@@ -43,16 +43,43 @@
+ //    private static final String DROP_TODO_TABLE =
+ //            "DROP TABLE IF EXISTS " + DB_TABLE;
+ 
++=======
++
++public class DbHelper extends SQLiteOpenHelper {
++    private static final String DEFAULT_LIST = "defaultList";
++    private static final int DB_VER = 1;
++    private static final String DB_NAME = "database";
++    private static final String DB_TASK_TABLE = "toDoTaskTable";
++    private static final String DB_LIST_TABLE = "toDoListTable";
++    private static final String TASK_ID = "idTask";
++    private static final String TASK_ID_OPTIONS = "INTEGER PRIMARY KEY AUTOINCREMENT";
++    private static final String TASK_ID_CATEGORY_ID = "taskCategory";
++    private static final String TASK_ID_CATEGORY_ID_OPTIONS = "INTEGER";
++    private static final String TASK_TITLE = "description";
++    private static final String TITLE_OPTIONS = "TEXT NOT NULL";
++    private static final String CATEGORY_ID = "idCategory";
++    private static final String CATEGORY_ID_OPTIONS = "INTEGER PRIMARY KEY AUTOINCREMENT";
++    private static final String CATEGORY_TILE = "category";
++    private static final String CATEGORY_TITLE_OPTIONS = "TEXT NOT NULL";
++>>>>>>> DevCategory
+ 
+     public DbHelper(Context context) {
+         super(context, DB_NAME, null, DB_VER);
+     }
+ 
++//    public void createDb() {
++//
++//    }
++
+     @Override
+     public void onCreate(SQLiteDatabase db) {
++<<<<<<< HEAD
+         //TODO: Utworzyć tabelę kategoria i nadać id oraz nazwę oraz połączenie zadania z kategorią poprzez klucz obcy
+ 
+         String query = "CREATE TABLE " + DB_LIST_TABLE
++=======
++        String createListTable = "CREATE TABLE " + DB_LIST_TABLE
++>>>>>>> DevCategory
+                 + "( "
+                 + CATEGORY_ID
+                 + " "

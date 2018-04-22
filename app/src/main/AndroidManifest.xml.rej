@@ -1,0 +1,13 @@
+diff a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml	(rejected hunks)
+@@ -11,7 +11,11 @@
+         android:theme="@style/AppTheme">
+         <activity
+             android:name=".ui.lists.CategoryView"
++<<<<<<< HEAD
+             android:label="@string/title_activity_list_view"
++=======
++            android:label="TODO LIST"
++>>>>>>> DevCategory
+             android:theme="@style/AppTheme.NoActionBar">
+ 
+             <intent-filter>
