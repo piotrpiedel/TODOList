@@ -27,8 +27,6 @@ public class ListsView extends AppCompatActivity implements ListsContract.View {
 
         listsPresenter = Injection.injectListsPresenter(getApplicationContext());
         listsPresenter.attachView(this);
-//        TODO: dodać tutaj zawartość metodę
-//        listsPresenter.onViewCreated();
 
 
 
