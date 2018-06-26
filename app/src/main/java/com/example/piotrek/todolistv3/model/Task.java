@@ -23,7 +23,6 @@ public class Task {
         this.categoryId = categoryId;
     }
     public Task(String nameTask) {
-//        this.idTask = count.incrementAndGet();
         this.idTask = count.getAndIncrement();
         this.nameTask = nameTask;
     }

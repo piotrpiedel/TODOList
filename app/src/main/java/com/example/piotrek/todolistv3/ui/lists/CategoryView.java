@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.example.piotrek.todolistv3.R;
 import com.example.piotrek.todolistv3.injection.Injection;
-import com.example.piotrek.todolistv3.model.AndroidDatabaseManager;
 import com.example.piotrek.todolistv3.model.Category;
 import com.example.piotrek.todolistv3.ui.tasks.TasksView;
 
@@ -61,15 +60,6 @@ public class CategoryView extends AppCompatActivity implements CategoryContract.
             }
         });
 
-//        FloatingActionButton button =(FloatingActionButton) findViewById(R.id.fabbuttonstartdatabaseview);
-//
-//        button.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//
-//                Intent dbmanager = new Intent(CategoryView.this,AndroidDatabaseManager.class);
-//                startActivity(dbmanager);
-//            }
-//        });
     }
 
     public void startNewActivity(View view){
@@ -94,7 +84,6 @@ public class CategoryView extends AppCompatActivity implements CategoryContract.
         Log.d("CategoryView","showAddCategory");
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Add New Category")
-//                .setMessage("What do you want to do next?")
                 .setView(taskEditText)
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
@@ -113,9 +102,7 @@ public class CategoryView extends AppCompatActivity implements CategoryContract.
 
     @Override
     public void showCategoryList(ArrayList<Category> categoryList) {
-//        for (Category category: categoryList){
-//            Log.d("TAG",category.toString());
-//        }
+
         CategoryAdapter categoryAdapter = new CategoryAdapter(this);
         categoryAdapter.addAll(categoryList);
 
