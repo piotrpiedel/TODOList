@@ -6,7 +6,6 @@ public class BasePresenter<V> {
     public void attachView(V view) {
         this.mView = view;
     }
-    //attachView(CategoryView)
 
     public void detachView() {
         this.mView = null;

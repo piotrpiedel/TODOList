@@ -70,8 +70,8 @@ public class TasksView extends AppCompatActivity implements TasksContract.View {
                 .setMessage("What do you want to do next?")
                 .setView(taskEditText)
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
                         String task = String.valueOf(taskEditText.getText());
                         Task newTask = new Task(task,idCategory);
                         tasksPresenter.onTaskCreated(newTask);

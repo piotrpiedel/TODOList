@@ -24,21 +24,15 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
         Task task = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.row, parent, false);
         }
-        // Lookup view for data population
         TextView taskTitle = convertView.findViewById(R.id.task_title);
         TextView idTask = convertView.findViewById(R.id.id_task);
-
-        // Populate the data into the template view using the data object
         taskTitle.setText(task.getNameTask());
         String idTaskString= String.valueOf(task.getIdTask());
         idTask.setText(idTaskString);
-        // Return the completed view to render on screen
         return convertView;
     }
 }

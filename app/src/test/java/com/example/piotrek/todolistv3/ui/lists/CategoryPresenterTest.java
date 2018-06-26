@@ -50,7 +50,9 @@ public class CategoryPresenterTest {
 
         MockitoAnnotations.initMocks(this);
         controller = Robolectric.buildActivity(CategoryView.class);
+//        categoryPresenter.attachView(categoryView);
         mView = categoryView;
+//        basePresenter.attachView(view);
         categoryPresenter.setCategoryRepository(categoryRepository);
 
 
@@ -65,6 +67,7 @@ public class CategoryPresenterTest {
         verify(categoryView).showAddCategoryView();
 
     }
+//    stub vs mock
 
     @Test
     public void onViewCreated() throws Exception {
