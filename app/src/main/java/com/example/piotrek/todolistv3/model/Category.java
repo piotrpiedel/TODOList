@@ -1,35 +1,39 @@
 package com.example.piotrek.todolistv3.model;
 
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity(tableName = "category_table")
 public class Category {
-    private int idCategory;
-    private String CategoryName;
-    public Category(int idCategory, String CategoryName) {
-        this.idCategory = idCategory;
-        this.CategoryName = CategoryName;
+
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public Category(String CategoryName) {
-        this.CategoryName = CategoryName;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    private String categoryTitle;
+
+    public Category(String categoryTitle) {
+        this.categoryTitle = categoryTitle;
     }
 
-    public int getIdCategory() {
-        return idCategory;
+    public int getId() {
+        return id;
     }
 
-    public String getCategoryName() {
-        return CategoryName;
+    public String getCategoryTitle() {
+        return categoryTitle;
     }
 
-    public void setIdCategory(int idCategory) {
-        this.idCategory = idCategory;
+    public void setCategoryTitle(String categoryTitle) {
+        this.categoryTitle = categoryTitle;
     }
 
-    public void setName(String name) {
-        this.CategoryName = CategoryName;
-    }
     @Override
     public String toString() {
-        return CategoryName;
+        return categoryTitle;
     }
 }

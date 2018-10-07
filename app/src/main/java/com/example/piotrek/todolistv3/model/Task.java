@@ -1,59 +1,43 @@
 package com.example.piotrek.todolistv3.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicInteger;
 
-
+@Entity(tableName = "task_table")
 public class Task {
-    private static final AtomicInteger count = new AtomicInteger(0);
-    private  int idTask;
-    private String nameTask = "";
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    private String taskTitle;
+
+    @Ignore
     private Date date;
+
     private int categoryId;
 
-
-    public Task(String nameTask, int categoryId) {
-        this.nameTask = nameTask;
+    public Task(String taskTitle, int categoryId) {
+        this.taskTitle = taskTitle;
         this.categoryId = categoryId;
     }
 
-    public Task(int idTask, String nameTask, int categoryId) {
-        this.idTask = idTask;
-        this.nameTask = nameTask;
-        this.categoryId = categoryId;
-    }
-    public Task(String nameTask) {
-        this.idTask = count.getAndIncrement();
-        this.nameTask = nameTask;
+    public int getId() {
+        return id;
     }
 
-    public Task(int idTask, String nameTask) {
-        this.idTask = idTask;
-        this.nameTask = nameTask;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public String getTaskTitle() {
+        return taskTitle;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public static AtomicInteger getCount() {
-        return count;
-    }
-
-    public int getIdTask() {
-        return idTask;
-    }
-
-    public String getNameTask() {
-        return nameTask;
-    }
-
-    public void setNameTask(String nameTask) {
-        this.nameTask = nameTask;
+    public void setTaskTitle(String taskTitle) {
+        this.taskTitle = taskTitle;
     }
 
     public Date getDate() {
@@ -64,9 +48,16 @@ public class Task {
         this.date = date;
     }
 
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
 
     @Override
     public String toString() {
-        return nameTask;
+        return taskTitle;
     }
 }

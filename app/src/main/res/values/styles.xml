@@ -17,4 +17,11 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="TextView"/>
+
+    <style name="TextView.CategoryItemRow">
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
+    </style>
+
 </resources>
