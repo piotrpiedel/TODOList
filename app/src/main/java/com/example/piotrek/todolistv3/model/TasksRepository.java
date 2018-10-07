@@ -1,24 +1,82 @@
 package com.example.piotrek.todolistv3.model;
 
-import java.util.ArrayList;
+import android.app.Application;
+
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class TasksRepository {
-   private DbHelper dbHelper;
 
-    public TasksRepository(DbHelper dbHelper) {
-        this.dbHelper = dbHelper;
+    private TaskDao taskDao;
+
+
+    public TasksRepository(Application application) {
+        AppDatabase database = AppDatabase.getInstance(application);
+        taskDao = database.getTaskDao();
     }
 
-    public void saveTask(Task task){
-        dbHelper.insertNewTask(task);
+    public void insertTask(Task task) {
+        Completable.fromAction(() -> taskDao.insertTask(task))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new CompletableObserverMain());
     }
 
-    public ArrayList<Task> loadTasks(int idCategory){
-        return dbHelper.getTaskList(idCategory);
+    public void updateTask(Task task) {
+        Completable.fromAction(() -> taskDao.updateTask(task))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new CompletableObserverMain());
     }
 
-    public void deleteTask(Task task){
-        dbHelper.deleteTask(task);
+    public void deleteTask(Task task) {
+        Completable.fromAction(() -> taskDao.deleteTask(task))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new CompletableObserverMain());
     }
+
+    public void deleteAllTasks() {
+        Completable.fromAction(() -> taskDao.deleteAllTasks())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new CompletableObserverMain());
+    }
+
+    public Flowable<List<Task>> getAllTaskFromSelectedCategory(int categoryId) {
+        return taskDao.getAllTaskFromCategory(categoryId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Flowable<List<Task>> getAllTasks() {
+        return taskDao.getAllTasks()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    private class CompletableObserverMain implements CompletableObserver {
+
+        @Override
+        public void onSubscribe(Disposable d) {
+
+        }
+
+        @Override
+        public void onComplete() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+    }
+
 }

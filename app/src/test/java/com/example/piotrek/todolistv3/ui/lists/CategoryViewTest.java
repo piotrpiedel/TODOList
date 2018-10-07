@@ -14,9 +14,7 @@ import com.example.piotrek.todolistv3.ui.tasks.TasksView;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Answers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
@@ -25,7 +23,6 @@ import org.robolectric.android.controller.ActivityController;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -91,9 +88,8 @@ public class CategoryViewTest {
         TextView categoryIdTextView = new TextView(RuntimeEnvironment.application.getApplicationContext());
         categoryNameTextView.setText("");
         when(parent.findViewById(anyInt())).thenReturn(categoryIdTextView);
-        categoryView.categorySignalFromButtonDeleteClicked(view);
-        verify(categoryPresenter).onDeleteButtonClicked("","");
-
+//        categoryView.buttonDeleteClicked(view);
+//        verify(categoryPresenter).onDeleteButtonClicked("");
 
     }
 

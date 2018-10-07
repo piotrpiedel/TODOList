@@ -61,7 +61,7 @@ public class CategoryPresenterTest {
 
     @Test
     public void if_onAddCategoryClicked() throws Exception {
-        //  i tutaj nie wiem co wpisac co to jest ten mView
+        //  i tutaj nie wiem co wpisac co to jest ten view
         mView.showAddCategoryView();
         //tutaj bym weryfikował czy metoda została wywolana??
         verify(categoryView).showAddCategoryView();

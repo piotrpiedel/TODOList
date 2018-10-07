@@ -6,121 +6,107 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.piotrek.todolistv3.R;
 import com.example.piotrek.todolistv3.injection.Injection;
 import com.example.piotrek.todolistv3.model.Category;
 import com.example.piotrek.todolistv3.ui.tasks.TasksView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import timber.log.Timber;
 
 public class CategoryView extends AppCompatActivity implements CategoryContract.View {
-    @BindView(R.id.list_view)
-    ListView categoryView;
-    private CategoryPresenter categoryPresenter;
 
+    @BindView(R.id.categories_list_view)
+    ListView categoryView;
+
+    @BindView(R.id.list_activity_fub_button)
+    FloatingActionButton floatingActionButton;
+
+    private CategoryPresenter categoryPresenter;
+    CategoryAdapter categoryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_activity);
+        setContentView(R.layout.activity_list_categories);
         ButterKnife.bind(this);
-
-        categoryPresenter = Injection.injectListsPresenter(getApplicationContext());
-        categoryPresenter.attachView(this);
-        categoryPresenter.onViewCreated();
-        categoryView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, android.view.View view, int position, long l) {
-                startNewActivity(view);
-            }
-
-        });
-
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.list_activity__fub_button);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("CategoryView","Clicked on add category button");
-                showAddCategoryView();
-            }
-        });
-
+        setPresenter();
+        setAdapter();
+        setCategoryView();
     }
 
-    public void startNewActivity(View view){
-        TextView categoryIdTextView = (TextView) view.findViewById(R.id.id_category);
-        String categoryId = String.valueOf(categoryIdTextView.getText());
-        Log.d("CategoryView", "CategoryId =  " + categoryId);
-        Intent intent = new Intent(CategoryView.this, TasksView.class);
-        intent.putExtra("idCategory",categoryId);
 
-        startActivity(intent);
+    private void setAdapter() {
+        categoryAdapter = new CategoryAdapter(this, categoryPresenter);
+        categoryView.setAdapter(categoryAdapter);
     }
 
     @Override
+    @OnClick(R.id.list_activity_fub_button)
     public void onFabButtonClicked() {
+        showAddCategoryView();
+    }
 
+    private void setCategoryView() {
+        categoryPresenter.onViewCreated();
+        categoryView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Timber.d("category has been clicked");
+                startNewActivity(categoryAdapter.getItem(position));
+            }
+        });
+    }
+
+    private void setPresenter() {
+        categoryPresenter = Injection.injectListsPresenter(getApplicationContext());
+        categoryPresenter.onAttach(this);
+    }
+
+    public void startNewActivity(Category category) {
+        Intent intent = new Intent(CategoryView.this, TasksView.class);
+        intent.putExtra("idCategory", category.getId());
+        startActivity(intent);
     }
 
 
     @Override
     public void showAddCategoryView() {
         final EditText taskEditText = new EditText(this);
-        Log.d("CategoryView","showAddCategory");
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Add New Category")
-                .setView(taskEditText)
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    //tutaj trzeba przerobić na obiekt??? chyba tutaj
-                    public void onClick(DialogInterface dialog, int which) {
-                        String table = String.valueOf(taskEditText.getText());
-                        Category newTable = new Category(table);
-                        categoryPresenter.onCategoryCreated(newTable);
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .create();
+        Timber.d("showAddCategory");
+        AlertDialog dialog = buildNewCategoryDialog(taskEditText);
         dialog.show();
 
     }
 
-    @Override
-    public void showCategoryList(ArrayList<Category> categoryList) {
-
-        CategoryAdapter categoryAdapter = new CategoryAdapter(this);
-        categoryAdapter.addAll(categoryList);
-
-
-        categoryView.setAdapter(categoryAdapter);
-
-        categoryAdapter.notifyDataSetChanged();
+    private AlertDialog buildNewCategoryDialog(EditText taskEditText) {
+        return new AlertDialog.Builder(this)
+                .setTitle("Add New Category")
+                .setView(taskEditText)
+                .setPositiveButton("Add new Category", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog1, int which) {
+                        categoryPresenter.onCategoryCreated(taskEditText.getText().toString());
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .create();
     }
 
-    public void categorySignalFromButtonDeleteClicked(View view) {
-        View parent = (View) view.getParent();
-        TextView categoryNameTextView = (TextView) parent.findViewById(R.id.category_title);
-        TextView categoryIdTextView = (TextView) parent.findViewById(R.id.id_category);
-        Log.e("String", (String) categoryNameTextView.getText());
-        String categoryName = String.valueOf(categoryNameTextView.getText());
-        String categoryId = String.valueOf(categoryIdTextView.getText());
-
-        categoryPresenter.onDeleteButtonClicked(categoryName, categoryId);
+    @Override
+    public void showCategoryList(List<Category> categoryList) {
+        categoryAdapter.clear();
+        categoryAdapter.addAll(categoryList);
+        categoryAdapter.notifyDataSetChanged();
     }
 
     @Override

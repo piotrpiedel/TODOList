@@ -2,20 +2,22 @@ package com.example.piotrek.todolistv3.ui.base;
 
 
 public class BasePresenter<V> {
-        protected V mView;
-    public void attachView(V view) {
-        this.mView = view;
+
+    protected V view;
+
+    public void onAttach(V view) {
+        this.view = view;
     }
 
-    public void detachView() {
-        this.mView = null;
+    public void onDetach() {
+        this.view = null;
     }
 
     public boolean isViewAttached() {
-        return mView != null;
+        return view != null;
     }
 
-    public V getmView() {
-        return mView;
+    public V getView() {
+        return view;
     }
 }
