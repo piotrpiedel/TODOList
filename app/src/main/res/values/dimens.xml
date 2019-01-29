@@ -7,6 +7,13 @@
     <dimen name="category_title_text_size">20sp</dimen>
     <dimen name="task_title_text_size">20sp</dimen>
     <dimen name="task_item_view_margin_start">25dp</dimen>
+    <dimen name="activity_list_recycler_padding">4dp</dimen>
+    <dimen name="category_item_view_corner_radius">4dp</dimen>
+    <dimen name="dialog_title_text_size">20sp</dimen>
+    <dimen name="dialog_button_height">30dp</dimen>
+    <dimen name="dialog_layout_margin">10dp</dimen>
+    <dimen name="dialog_base_button_margin">4dp</dimen>
+    <dimen name="category_item_view_margin">2dp</dimen>
 
 
 </resources>

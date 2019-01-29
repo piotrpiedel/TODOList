@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dialog_layout_margin">
+
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/dialog_layout_margin"
+        android:textSize="@dimen/dialog_title_text_size"
+        android:textStyle="bold"
+        tools:text="Title of dialog" />
+
+    <EditText
+        android:id="@+id/dialog_input_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_title"
+        android:hint="@string/add_new_input"
+        android:inputType="textAutoComplete"
+        android:textSize="@dimen/dialog_title_text_size"
+        tools:hint="Input your category, or task"
+        tools:ignore="Autofill" />
+
+    <LinearLayout
+        android:id="@+id/dialog_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_input_text">
+
+        <Button
+            android:id="@+id/dialog_button_cancel"
+            style="@android:style/ButtonBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:layout_margin="@dimen/dialog_base_button_margin"
+            android:text="@string/dialog_button_cancel" />
+
+        <Button
+            android:id="@+id/dialog_button_save"
+            style="@android:style/ButtonBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:layout_margin="@dimen/dialog_base_button_margin"
+            android:text="@string/dialog_button_save" />
+    </LinearLayout>
+
+
+</RelativeLayout>

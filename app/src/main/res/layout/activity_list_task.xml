@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.piotrek.todolistv3.ui.tasks.TasksView">
+    tools:context="com.example.piotrek.todolist.ui.tasks.views.TasksView">
 
-    <ListView
-        android:id="@+id/task_list_view"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/task_list_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/task_list_activity_fub_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,4 +20,4 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_input_add" />
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
