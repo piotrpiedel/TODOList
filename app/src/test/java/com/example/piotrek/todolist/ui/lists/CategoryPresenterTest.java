@@ -49,9 +49,7 @@ public class CategoryPresenterTest {
 
         MockitoAnnotations.initMocks(this);
         controller = Robolectric.buildActivity(CategoryView.class);
-//        categoryPresenter.attachView(categoryView);
         mView = categoryView;
-//        basePresenter.attachView(baseView);
         categoryPresenter.setCategoryRepository(categoryRepository);
 
 
@@ -60,13 +58,10 @@ public class CategoryPresenterTest {
 
     @Test
     public void if_onAddCategoryClicked() throws Exception {
-        //  i tutaj nie wiem co wpisac co to jest ten baseView
         mView.showAddCategoryView();
-        //tutaj bym weryfikował czy metoda została wywolana??
         verify(categoryView).showAddCategoryView();
 
     }
-//    stub vs mock
 
     @Test
     public void onViewCreated() throws Exception {
